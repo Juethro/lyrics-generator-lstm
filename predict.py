@@ -86,6 +86,3 @@ def predict(inp):
         print(seed_text)
 
     return make_lyrics(inp, 10)
-
-
-predict('you')

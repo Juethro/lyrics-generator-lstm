@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 from flask_cors import CORS
-from predict import *
+# from predict import *
 
 app = Flask(__name__)
 api = Api(app)
@@ -20,9 +20,14 @@ class Home(Resource):
 
     def post(self):
         # ab = request.get_json()
-        return rest, 200
+        return request.get_json(), 200
+
+class Predicc(Resource):
+    def post(self):
+        pass
 
 api.add_resource(Home, '/')
+api.add_resource(Predicc, '/predict')
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run(debug=True)

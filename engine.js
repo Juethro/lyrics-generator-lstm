@@ -29,11 +29,12 @@ sendBtn.addEventListener('click', function(){
     })
 })
     .then(res => res.json())
-    .then(data => {
-        out1 = data.get('out1')
-            document.getElementById('out-1').innerHTML = `${out1}`;
-        out2 = data.get('out2')
-            document.getElementById('out-2').innerHTML = `${out2}`;
-
+    .then(json => {
+        var ut = JSON.stringify(json);
+        var out = JSON.parse(ut);
+        document.getElementById('out-1').innerHTML = out['inp_1'];
+        document.getElementById('out-2').innerHTML = out['inp_2'];
+        document.getElementById('out-3').innerHTML = out['inp_3'];
+        document.getElementById('out-4').innerHTML = out['inp_4'];
     })
 });

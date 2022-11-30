@@ -5,10 +5,13 @@ from predict import *
 
 app = Flask(__name__)
 api = Api(app)
+CORS(app)
 
 rest = {
-    'wa': 'kokok',
-    'ko': 'wawaawa'
+    'out1': 'kokok',
+    'out2': 'wawaawa',
+    'out3': 'duarrr',
+    'out4': 'ancok'
 }
 
 class Home(Resource):
@@ -16,7 +19,8 @@ class Home(Resource):
         return rest, 200
 
     def post(self):
-        return request.get_json(), 200
+        # ab = request.get_json()
+        return rest, 200
 
 api.add_resource(Home, '/')
 

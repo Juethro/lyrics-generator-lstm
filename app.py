@@ -24,27 +24,33 @@ class Home(Resource):
 
 class Predicc(Resource):
     def post(self):
+        # Input dari form
         dict_inpt = request.get_json()
         inp1 = dict_inpt['inp_1']
         inp2 = dict_inpt['inp_2']
         inp3 = dict_inpt['inp_3']
         inp4 = dict_inpt['inp_4']
         
+
+        #menyiapkan output dari model
+        hasil = []
         for i in [inp1, inp2, inp3, inp4]:
-            pass
-
+            lirik = predict(i)
+            hasil.append(lirik)
+        
+        #menyiapkan json output
         out = {
-            'out1': bait1,
-            'out2': bait2,
-            'out3': bait3,
-            'out4': bait4
+            'out1': hasil[0],
+            'out2': hasil[1],
+            'out3': hasil[2],
+            'out4': hasil[3]
         }
-
+        
+        #kirim
         return jsonify(out), 200
 
 api.add_resource(Home, '/')
 api.add_resource(Predicc, '/predict')
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0",
-            debug=True)
+    app.run(host="0.0.0.0", debug=True)

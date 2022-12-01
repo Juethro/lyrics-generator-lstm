@@ -17,6 +17,7 @@ sendBtn.addEventListener('click', function(){
 
     fetch('http://localhost:5000', {
     method:'POST',
+    mode: 'no-cors',
     headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

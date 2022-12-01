@@ -1,11 +1,14 @@
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 from flask_cors import CORS
-from predict import *
+from translate import *
+
 
 app = Flask(__name__)
-api = Api(app)
+#!!! CORS dulu baru api
 CORS(app)
+api = Api(app)
+
 
 rest = {
     'out1': 'kokok',
@@ -31,23 +34,11 @@ class Predicc(Resource):
         inp3 = dict_inpt['inp_3']
         inp4 = dict_inpt['inp_4']
         
-
         #menyiapkan output dari model
-        hasil = []
-        for i in [inp1, inp2, inp3, inp4]:
-            lirik = predict(i)
-            hasil.append(lirik)
-        
-        #menyiapkan json output
-        out = {
-            'out1': hasil[0],
-            'out2': hasil[1],
-            'out3': hasil[2],
-            'out4': hasil[3]
-        }
+        hasil = translate(inp1,inp2,inp3,inp4)
         
         #kirim
-        return jsonify(out), 200
+        return hasil, 200
 
 api.add_resource(Home, '/')
 api.add_resource(Predicc, '/predict')

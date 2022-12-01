@@ -88,4 +88,4 @@ def predict(inp):
         hasil.append(seed_text)
         
     make_lyrics(inp, 10)
-    return hasil
+    return hasil[0]

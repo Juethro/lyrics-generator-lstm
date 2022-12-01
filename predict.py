@@ -16,7 +16,7 @@ def predict(inp):
     from keras.models import load_model
 
     #The dataset (P.S. Look, it is TSV)
-    data=pd.read_csv('web_uas/model/angry.csv')
+    data=pd.read_csv('model/angry.csv')
     # removing null values to avoid errors 
     data.dropna(inplace = True) 
     # converting to string data type
@@ -46,7 +46,7 @@ def predict(inp):
         TERM = TERM.replace(symbol,"")
 
     
-    text = open('web_uas/model/choruses.txt', 'rb').read().decode(encoding='utf-8')
+    text = open('model/choruses.txt', 'rb').read().decode(encoding='utf-8')
     # Splitting the string into sentences, while converting whole data into lowercase.
     corpus = text.lower().split("\n")
     # To make sure no sentence appears twice in our corpus, we use set. Otherwise, it will make the model biased.
@@ -69,13 +69,15 @@ def predict(inp):
     input_sequences = np.array(pad_sequences(input_sequences,
                         maxlen = max_sequence_len, padding='pre'))
     
-    model = load_model('web_uas/model/my_model.h5')
+    model = load_model('model/my_model.h5')
+
+    hasil = []
 
     def make_lyrics(seed_text, next_words):
         for _ in range(next_words):
             token_list = tokenizer.texts_to_sequences([seed_text])[0]
             token_list = pad_sequences([token_list],maxlen=max_sequence_len + 1,padding='pre')
-            predicted = model.predict(token_list, verbose=1)
+            predicted = model.predict(token_list, verbose=0)
             classes = np.argmax(predicted,axis=1)
             output_word = ""
             for word, index in tokenizer.word_index.items():
@@ -83,6 +85,7 @@ def predict(inp):
                     output_word = word
                     break
             seed_text += " " + output_word
-        print(seed_text)
-
-    return make_lyrics(inp, 10)
+        hasil.append(seed_text)
+        
+    make_lyrics(inp, 10)
+    return hasil

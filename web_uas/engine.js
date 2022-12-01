@@ -15,9 +15,8 @@ sendBtn.addEventListener('click', function(){
     let inp_3 = document.getElementById('in-3').value;
     let inp_4 = document.getElementById('in-4').value;
 
-    fetch('http://localhost:5000', {
+    fetch('http://128.199.78.54:5000/predict', {
     method:'POST',
-    mode: 'no-cors',
     headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -31,11 +30,12 @@ sendBtn.addEventListener('click', function(){
 })
     .then(res => res.json())
     .then(json => {
-        var ut = JSON.stringify(json);
-        var out = JSON.parse(ut);
-        document.getElementById('out-1').innerHTML = out['inp_1'];
-        document.getElementById('out-2').innerHTML = out['inp_2'];
-        document.getElementById('out-3').innerHTML = out['inp_3'];
-        document.getElementById('out-4').innerHTML = out['inp_4'];
+        // var ut = JSON.stringify(json);
+        // var out = JSON.parse(json);
+        document.getElementById('out-1').innerHTML = json.out1;
+        document.getElementById('out-2').innerHTML = json.out2;
+        document.getElementById('out-3').innerHTML = json.out3;
+        document.getElementById('out-4').innerHTML = json.out4;
+        // console.log(json)
     })
 });
